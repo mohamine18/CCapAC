@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-lg-center">
+        <div class="col-lg-10">
+            <form method="POST">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="entity_org">Domains</label>
+                    </div>
+                    <select class="custom-select" name="entity_org" id="entity_org"  onchange="select_domain()">
+                        <option value="www.example.com/v1/org1">www.example.com/v1/org1</option>
+                        <option value="www.example.com/v1/org2">www.example.com/v1/org2</option>
+                        <option value="www.example.com/v1/org3">www.example.com/v1/org3</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Entity ID" name="entity_id" id="token_generate">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" onclick="create_UUID()">Button</button>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="types01">Types</label>
+                    </div>
+                    <select class="custom-select" name="entity_type">
+                        <option value="sensor">Sensor</option>
+                        <option value="actuator">Actuator</option>
+                        <option value="device">Device</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Entity URI</span>
+                    </div>
+                    <input type="text" name="entity_uri_domain" id="entity_uri_domain" class="form-control" placeholder="Domain name">
+                    <input type="text" name="entity_uri_location" class="form-control" placeholder="Location name">
+                    <input type="text" name="entity_uri_resource" class="form-control" placeholder="Resource ID">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Functions</label>
+                    </div>
+                    <select class="custom-select" name="entity_func">
+                        <option value="temperature">Temperature</option>
+                        <option value="Proximity">Proximity</option>
+                        <option value="Light">Light</option>
+                        <option value="Pressure">Pressure</option>
+                        <option value="Smoke">Smoke</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Add asset</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function create_UUID() {
+        var dt=new Date().getTime();
+        var uuid='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function (c) {
+            var r=(dt+Math.random()*16)%16|0;
+            dt=Math.floor(dt/16);
+            return (c=='x'? r:(r&0x3|0x8)).toString(16);
+        });
+        document.getElementById("token_generate").value = uuid;
+    }
+    function select_domain(){
+        var domain = document.getElementById("entity_org").value;
+        document.getElementById("entity_uri_domain").value = domain;
+    }
+</script>
+{% endblock %}

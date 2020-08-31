@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="text-center mt-1">
+    <h2>Assets Table</h2>
+    <p>The table presents all the resources in the system</p>
+<div class="table-responsive">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th>Owner</th>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Issuer</th>
+                <th>Date issue</th>
+                <th>Resource URI</th>
+                <th>Resource Func</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for asset in assets %}
+            <tr>
+                <td>{{asset.entityCredential.owner}}</td>
+                <td>{{asset.entityCredential.id}}</td>
+                <td>{{asset.entityCredential.type}}</td>
+                <td>{{asset.context.issuer}}</td>
+                <td>{{asset.context.date}}</td>
+                <td>{{asset.entityCredential.uri}}</td>
+                <td>{{asset.entityMetadata.func}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+{% endblock %}
