@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-lg-center">
+        <div class="col-lg-10">
+            <form method="POST">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Service name</span>
+                    </div>
+                    <input type="text" class="form-control" name="service_name">
+                  </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Domain initiator</label>
+                    </div>
+                    <select class="custom-select" name="service_init">
+                        <option value="www.example.com/v1/org1">www.example.com/v1/org1</option>
+                        <option value="www.example.com/v1/org2">www.example.com/v1/org2</option>
+                        <option value="www.example.com/v1/org3">www.example.com/v1/org3</option>
+                    </select>
+                </div>
+                
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">SM number</label>
+                    </div>
+                    <select class="custom-select" name="sm_number">
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Requests peer day</label>
+                    </div>
+                    <select class="custom-select" name="req_quota">
+                        <option value="100">100</option>
+                        <option value="300">300</option>
+                        <option value="600">600</option>
+                        <option value="900">900</option>
+                        <option value="1200">1200</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add service</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

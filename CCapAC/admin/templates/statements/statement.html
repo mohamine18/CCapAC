@@ -1,0 +1,36 @@
+{% extends 'statements/base.html' %}
+{% block content %}
+<div class="text-center mt-1">
+    <h2>Statements Table</h2>
+    <p>The table presents all the statements in the system</p>
+    <div class="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>SID</th>
+                    <th>Issuer</th>
+                    <th>Date issue</th>
+                    <th>Principle</th>
+                    <th>Profile ID</th>
+                    <th>Action</th>
+                    <th>Resource URI</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for statement in data.statements %}
+                <tr>
+                    <td>{{statement.context.uid}}</td>
+                    <!--td>{{statement.context.issuer}}</td-->
+                    <td>****</td>
+                    <td>{{statement.context.date}}</td>
+                    <td>{{statement.entityCredential.owner}}</td>
+                    <td>{{statement.entityCredential.id}}</td>
+                    <td>{{statement.entityCredential.type}}</td>
+                    <td>{{statement.entityCredential.uri}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

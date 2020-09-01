@@ -3,33 +3,100 @@
 <div class="text-center mt-1">
     <h2>Assets Table</h2>
     <p>The table presents all the resources in the system</p>
-<div class="table-responsive">
-    <table class="table table-sm">
-        <thead>
-            <tr>
-                <th>Owner</th>
-                <th>ID</th>
-                <th>Type</th>
-                <th>Issuer</th>
-                <th>Date issue</th>
-                <th>Resource URI</th>
-                <th>Resource Func</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for asset in assets %}
-            <tr>
-                <td>{{asset.entityCredential.owner}}</td>
-                <td>{{asset.entityCredential.id}}</td>
-                <td>{{asset.entityCredential.type}}</td>
-                <td>{{asset.context.issuer}}</td>
-                <td>{{asset.context.date}}</td>
-                <td>{{asset.entityCredential.uri}}</td>
-                <td>{{asset.entityMetadata.func}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Asset ID</th>
+                    <th>Issuer</th>
+                    <th>Date issue</th>
+                    <th>Owner</th>
+                    <th>Resource ID</th>
+                    <th>Type</th>
+                    <th>Resource URI</th>
+                    <th>Resource Func</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asset in data.assets %}
+                <tr>
+                    <td>{{asset.context.uid}}</td>
+                    <!--td>{{asset.context.issuer}}</td-->
+                    <td>****</td>
+                    <td>{{asset.context.date}}</td>
+                    <td>{{asset.entityCredential.owner}}</td>
+                    <td>{{asset.entityCredential.id}}</td>
+                    <td>{{asset.entityCredential.type}}</td>
+                    <td>{{asset.entityCredential.uri}}</td>
+                    <td>{{asset.entityMetadata.func}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+<div class="text-center mt-1">
+    <h2>Services Table</h2>
+    <p>The table presents all the services in the system</p>
+    <div class="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Service ID</th>
+                    <th>Service name</th>
+                    <th>Issuer</th>
+                    <th>Date issue</th>
+                    <th>Service init</th>
+                    <th>SM number</th>
+                    <th>Request quota</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in data.services %}
+                <tr>
+                    <td>{{service.context.id}}</td>
+                    <td>{{service.serviceCredential.name}}</td>
+                    <!--td>{{service.context.issuer}}</td-->
+                    <td>****</td>
+                    <td>{{service.context.date}}</td>
+                    <td>{{service.serviceCredential.service_init}}</td>
+                    <td>{{service.metadata.sm_number}}</td>
+                    <td>{{service.metadata.req_quota}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+<div class="text-center mt-1">
+    <h2>Profiles Table</h2>
+    <p>The table presents all the profiles in the system</p>
+    <div class="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Profile ID</th>
+                    <th>Asset ID</th>
+                    <th>Service ID</th>
+                    <th>Date issue</th>
+                    <th>Issuer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for profile in data.profiles %}
+                <tr>
+                    <td>{{profile.context.id}}</td>
+                    <td>{{profile.profileCredential.asset_id}}</td>
+                    <td>{{profile.profileCredential.service_id}}</td>
+                    <td>{{profile.context.date}}</td>
+                    <td>****</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
 {% endblock %}

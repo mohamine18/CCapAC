@@ -1,7 +1,8 @@
 from CCapAC.admin import asset_table
 from tinydb import Query
-import uuid
 import datetime
+
+from CCapAC.utils.uuid import generate_uid
 
 class Asset:
     """
@@ -16,14 +17,6 @@ class Asset:
         self.entity_uri = entity_uri
         self.entity_func = entity_func
 
-    def create_uid(self):
-        """
-        Create unique identifier for each asset record in the database
-        return value UID 'string'
-        """
-        uid = str(uuid.uuid4())
-        return uid
-
     def create_asset(self):
         """
         Create assets
@@ -31,17 +24,17 @@ class Asset:
         if not self.entity_owner or not self.entity_id or not self.entity_type or not self.asset_issuer or not self.entity_uri or not self.entity_func:
             raise ValueError("One of the params is not defined")
         else:
-            uid = self.create_uid()
+            uid = generate_uid()
             time = datetime.datetime.now()
             asset_dict = {
                 "context" : {
+                    "uid" : uid,
                     "issuer" : self.asset_issuer,
                     "date" : str(time),
                 }, 
                 "entityCredential" : {
-                    "uid" : uid,
-                    "owner" : self.entity_owner,
                     "id" : self.entity_id,
+                    "owner" : self.entity_owner,
                     "type" : self.entity_type,
                     "uri" : self.entity_uri,
                 },
@@ -56,7 +49,6 @@ class Asset:
                 result = True
             return result
             
-    
     def exist(self):
         """
         Check the existence of an asset before insertion
@@ -72,6 +64,11 @@ class Asset:
         """
         return asset_table.all()
 
-    def delete(self, entity_id):
+    def delete(self):
         pass
     
+    def resource_uri(self, uuid):
+        asset = asset_table.search(Query().context.id == uuid)
+        if not asset:
+            return False
+        return asset.entityCredential.uri

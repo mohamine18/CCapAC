@@ -6,7 +6,7 @@
             <form method="POST">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="entity_org">Domains</label>
+                        <label class="input-group-text">Domains</label>
                     </div>
                     <select class="custom-select" name="entity_org" id="entity_org"  onchange="select_domain()">
                         <option value="www.example.com/v1/org1">www.example.com/v1/org1</option>
@@ -17,12 +17,12 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Entity ID" name="entity_id" id="token_generate">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" onclick="create_UUID()">Button</button>
+                        <button class="btn btn-outline-secondary" type="button" onclick="create_UUID()">GenKey</button>
                     </div>
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="types01">Types</label>
+                        <label class="input-group-text">Types</label>
                     </div>
                     <select class="custom-select" name="entity_type">
                         <option value="sensor">Sensor</option>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Functions</label>
+                        <label class="input-group-text">Functions</label>
                     </div>
                     <select class="custom-select" name="entity_func">
                         <option value="temperature">Temperature</option>

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-lg-center">
+        <div class="col-lg-10">
+            <form method="POST">
+                
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Assets</label>
+                    </div>
+                    <select class="custom-select" name="asset_id">
+                        {% for asset in data.assets %}
+                        <option value="{{ asset.context.uid }}">{{ asset.context.uid }}- {{ asset.entityCredential.type }} - {{ asset.entityMetadata.func }} - {{ asset.entityCredential.owner }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Services</label>
+                    </div>
+                    <select class="custom-select" name="service_id">
+                        {% for service in data.services %}
+                        <option value="{{service.context.id}}">{{service.serviceCredential.name}} - {{service.serviceCredential.service_init}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Create profile</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
