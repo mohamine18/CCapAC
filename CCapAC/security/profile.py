@@ -57,12 +57,14 @@ class Profile:
     def delete_profile(self):
         pass
 
-    def profile_asset_id(self, uuid):
-        profile = profile_table.search(Query().context.id == uuid)
-        if not profile:
+    def service_assets_profiles(self, service_id):
+        profiles = profile_table.search(Query().profileCredential.service_id == service_id)
+        if not profiles:
             return False
-        return profile.profileCredential.asset_id
-    
-    def profile_service_id(self, profile_id):
-        service_id = profile_table.search(Query().context.id == profile_id)
-        return service_id
+        return profiles
+
+    def profile_asset_id(self, profile_id):
+        asset_id = profile_table.search(Query().context.id == profile_id)
+        if not asset_id:
+            return False
+        return asset_id

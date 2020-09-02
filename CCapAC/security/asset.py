@@ -68,7 +68,9 @@ class Asset:
         pass
     
     def resource_uri(self, uuid):
-        asset = asset_table.search(Query().context.id == uuid)
+        asset = asset_table.search(Query().context.uid == uuid)
         if not asset:
             return False
-        return asset.entityCredential.uri
+        asset_id = asset[0]['entityCredential']['uri']
+        print(asset_id)
+        return asset_id

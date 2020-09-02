@@ -19,14 +19,14 @@
             <tbody>
                 {% for statement in data.statements %}
                 <tr>
-                    <td>{{statement.context.uid}}</td>
+                    <td>{{statement.context.sid}}</td>
                     <!--td>{{statement.context.issuer}}</td-->
                     <td>****</td>
                     <td>{{statement.context.date}}</td>
-                    <td>{{statement.entityCredential.owner}}</td>
-                    <td>{{statement.entityCredential.id}}</td>
-                    <td>{{statement.entityCredential.type}}</td>
-                    <td>{{statement.entityCredential.uri}}</td>
+                    <td>{{statement.context.principal}}</td>
+                    <td>{{statement.statementCredential.profile_id}}</td>
+                    <td>{{statement.statementCredential.action}}</td>
+                    <td>{{statement.statementCredential.uri}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

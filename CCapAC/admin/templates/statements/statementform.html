@@ -1,4 +1,80 @@
 {% extends 'statements/base.html' %}
 {% block content %}
-create
+<div class="container">
+    <div class="row justify-content-lg-center">
+        <div class="col-lg-10">
+            <form method="POST">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Services</label>
+                    </div>
+                    <select class="custom-select" name="service_id" id='service_id' onchange="fetch_data()">
+                        <option value="0">Choose a service</option>
+                        {% for service in data.services %}
+                        <option value="{{service.context.id}}">{{service.serviceCredential.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Profiles</label>
+                    </div>
+                    <select class="custom-select" name="profile_id" id="profile_id">
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Actions</label>
+                    </div>
+                    <select class="custom-select" name="action">
+                        <option value="read">Read</option>
+                        <option value="write">Write</option>
+                        <option value="read_write">Read & Write</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Create statement</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function fetch_data() {
+        let e=document.getElementById("service_id");
+        let service_id=e.options[e.selectedIndex].value;
+
+        let dropdown=document.getElementById('profile_id');
+        dropdown.length=0;
+
+        let url='http://127.0.0.1:5000/statements/api/v1/services/profiles?service_id='+service_id
+
+        fetch(url)
+            .then(
+                function (response) {
+                    if(response.status!==200) {
+                        console.warn('Looks like there was a problem. Status Code: '+
+                            response.status);
+                        return;
+                    }
+
+                    // Examine the text in the response  
+                    response.json().then(function (data) {
+                        let option;
+                        for(let i=0;i<data.length;i++) {
+                            option=document.createElement('option');
+                            option.text="Profile id -- "+data[i].context.id;
+                            option.value=data[i].context.id;
+                            dropdown.add(option);
+                        }
+                    });
+                }
+            )
+            .catch(function (err) {
+                console.error('Fetch Error -',err);
+            });
+    }
+</script>
 {% endblock %}

@@ -6,6 +6,8 @@ import CCapAC.security.asset as asset
 import CCapAC.security.profile as profile
 from CCapAC.utils.uuid import generate_uid
 
+import json
+
 class Statement:
     def __init__(self, st_issuer=None, st_action=None, st_profile_id=None):
         self.st_issuer = st_issuer
@@ -20,8 +22,8 @@ class Statement:
         time = datetime.datetime.now()
 
         profile_instance = profile.Profile()
-        asset_id = profile_instance.profile_asset_id(self.st_profile_id)
-
+        assets = profile_instance.profile_asset_id(self.st_profile_id)
+        asset_id = assets[0]['profileCredential']['asset_id']
         asset_instance = asset.Asset()
         resource_uri = asset_instance.resource_uri(asset_id)
 
@@ -32,7 +34,7 @@ class Statement:
             "context": {
                 "sid" : sid,
                 "issuer" : self.st_issuer,
-                "time" : str(time),
+                "date" : str(time),
                 "principal" : sid,
             },
             "statementCredential" : {
@@ -42,6 +44,7 @@ class Statement:
             }
         }
         exist = self.exist_statement()
+
         if not exist:
             result = statement_table.insert(statement_dict)
         else:

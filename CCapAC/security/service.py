@@ -54,7 +54,7 @@ class Service:
         return a boolean
         """
         return service_table.search(Query().serviceCredential.name == self.service_name)
-
+    
     def get_all(self):
         """
         List of all services used for table representation
@@ -64,3 +64,10 @@ class Service:
 
     def delete_service(self):
         pass
+
+    def get_first_service(self):
+        services = self.get_all()
+        if not services:
+            return False
+        for service in services:
+            return service
