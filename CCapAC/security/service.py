@@ -4,6 +4,9 @@ import datetime
 
 from CCapAC.utils.uuid import generate_uid
 
+import CCapAC.security.bigchaindb as bigch
+from bigchaindb_driver import BigchainDB
+
 class Service:
     """
     services creation and other functionality
@@ -40,6 +43,9 @@ class Service:
             exist = self.exist_service()
             if not exist:
                 result = service_table.insert(service_dict)
+                # Call bigchainDB to create
+                bigchaindb_instance = bigch.BigchaDb(tx_body=service_dict, tx_type="SERVICE")
+                bigchaindb_instance.create()
             else:
                 result = True
             return result

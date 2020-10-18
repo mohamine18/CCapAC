@@ -1,10 +1,14 @@
-from CCapAC.admin import statement_table
+from CCapAC.admin import statement_table, tokens_table
 from tinydb import Query
 import datetime
+import jwt
 
 import CCapAC.security.asset as asset
 import CCapAC.security.profile as profile
 from CCapAC.utils.uuid import generate_uid
+
+import CCapAC.security.bigchaindb as bigch
+from bigchaindb_driver import BigchainDB
 
 import json
 
@@ -47,6 +51,18 @@ class Statement:
 
         if not exist:
             result = statement_table.insert(statement_dict)
+            
+            # Call BigchainDB to create
+            bigchaindb_instance = bigch.BigchaDb(tx_body=statement_dict, tx_type="STATEMENT")
+            bigchaindb_instance.create()
+            
+            # Tokens generation
+            statement_encoded = jwt.encode(statement_dict, 'secret', algorithm='HS256')
+            tx = {
+                "id" : sid,
+                "token" : statement_encoded.decode("utf-8")
+            }
+            tokens_table.insert(tx)
         else:
             result = True
         return result

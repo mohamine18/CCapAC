@@ -1,0 +1,37 @@
+{% extends 'statements/base.html' %}
+{% block content %}
+<div class="text-center mt-3">
+    <form method="POST">
+        <div class="form-group">
+            <h2>Token verification:</h2>
+            <input type="text" name="token" class="form-control" placeholder="Enter token">
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+</div>
+<p>{{ data.decode }}</p>
+<hr style="height:2px; border-width:0; color:gray; background-color:gray">
+<div class="text-center mt-1">
+    <h2>Statements Table</h2>
+    <p>The table presents all the statements in the system</p>
+    <div class="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>statement ID</th>
+                    <th>Token</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for token in data.tokens %}
+                <tr>
+                    <td>{{token.id}}</td>
+                    <td>{{token.token}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

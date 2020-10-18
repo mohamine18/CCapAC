@@ -2,7 +2,11 @@ from CCapAC.admin import asset_table
 from tinydb import Query
 import datetime
 
+
 from CCapAC.utils.uuid import generate_uid
+import CCapAC.security.bigchaindb as bigch
+
+from bigchaindb_driver import BigchainDB
 
 class Asset:
     """
@@ -45,6 +49,9 @@ class Asset:
             exist = self.exist()
             if not exist:
                 result = asset_table.insert(asset_dict)
+                # Call bigchainDB to create
+                bigchaindb_instance = bigch.BigchaDb(tx_body=asset_dict, tx_type="ASSET")
+                bigchaindb_instance.create()
             else:
                 result = True
             return result

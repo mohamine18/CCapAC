@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="text-center mt-1">
+    <h2>Assets BigDB</h2>
+    <p>The table presents all the resources in the BigchainDB</p>
+    <div class="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Prepare Start</th>
+                    <th>Prepare End</th>
+                    <th>Fulfill Start</th>
+                    <th>Fulfill End</th>
+                    <th>Commit Start</th>
+                    <th>Commit End</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asset in data.assets %}
+                <tr>
+                    <td>{{asset.BigDB_id}}</td>
+                    <td>{{asset.prepar_time.start}}</td>
+                    <td>{{asset.prepar_time.finish}}</td>
+                    <td>{{asset.fulfill_time.start}}</td>
+                    <td>{{asset.fulfill_time.finish}}</td>
+                    <td>{{asset.commit_time.start}}</td>
+                    <td>{{asset.commit_time.finish}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<hr style="height:2px; border-width:0; color:gray; background-color:gray">
+<div class="text-center mt-1">
+    <h2>Services BigDB</h2>
+    <p>The table presents all the services in the BigchainDB</p>
+    <div class="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Prepare Start</th>
+                    <th>Prepare End</th>
+                    <th>Fulfill Start</th>
+                    <th>Fulfill End</th>
+                    <th>Commit Start</th>
+                    <th>Commit End</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in data.services %}
+                <tr>
+                    <td>{{service.BigDB_id}}</td>
+                    <td>{{service.prepar_time.start}}</td>
+                    <td>{{service.prepar_time.finish}}</td>
+                    <td>{{service.fulfill_time.start}}</td>
+                    <td>{{service.fulfill_time.finish}}</td>
+                    <td>{{service.commit_time.start}}</td>
+                    <td>{{service.commit_time.finish}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<hr style="height:2px; border-width:0; color:gray; background-color:gray">
+<div class="text-center mt-1">
+    <h2>Profiles BigDB</h2>
+    <p>The table presents all the profiles in the BigchainDB</p>
+    <div class="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Prepare Start</th>
+                    <th>Prepare End</th>
+                    <th>Fulfill Start</th>
+                    <th>Fulfill End</th>
+                    <th>Commit Start</th>
+                    <th>Commit End</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for profile in data.profiles %}
+                <tr>
+                    <td>{{profile.BigDB_id}}</td>
+                    <td>{{profile.prepar_time.start}}</td>
+                    <td>{{profile.prepar_time.finish}}</td>
+                    <td>{{profile.fulfill_time.start}}</td>
+                    <td>{{profile.fulfill_time.finish}}</td>
+                    <td>{{profile.commit_time.start}}</td>
+                    <td>{{profile.commit_time.finish}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<hr style="height:2px; border-width:0; color:gray; background-color:gray">
+<div class="text-center mt-1">
+    <h2>Statements BigDB</h2>
+    <p>The table presents all the statements in the BigchainDB</p>
+    <div class="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Prepare Start</th>
+                    <th>Prepare End</th>
+                    <th>Fulfill Start</th>
+                    <th>Fulfill End</th>
+                    <th>Commit Start</th>
+                    <th>Commit End</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for statement in data.statements %}
+                <tr>
+                    <td>{{statement.BigDB_id}}</td>
+                    <td>{{statement.prepar_time.start}}</td>
+                    <td>{{statement.prepar_time.finish}}</td>
+                    <td>{{statement.fulfill_time.start}}</td>
+                    <td>{{statement.fulfill_time.finish}}</td>
+                    <td>{{statement.commit_time.start}}</td>
+                    <td>{{statement.commit_time.finish}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

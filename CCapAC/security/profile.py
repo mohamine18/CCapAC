@@ -4,6 +4,9 @@ import datetime
 
 from CCapAC.utils.uuid import generate_uid
 
+import CCapAC.security.bigchaindb as bigch
+from bigchaindb_driver import BigchainDB
+
 class Profile:
     def __init__(self, asset_id=None, service_id=None, profile_issuer=None):
         self.asset_id = asset_id
@@ -30,6 +33,9 @@ class Profile:
             exist = self.exist_profile()
             if not exist:
                 result = profile_table.insert(profile_dict)
+                # Call bigchainDB to create
+                bigchaindb_instance = bigch.BigchaDb(tx_body=profile_dict, tx_type="PROFILE")
+                bigchaindb_instance.create()
             else:
                 result = True
             return result
