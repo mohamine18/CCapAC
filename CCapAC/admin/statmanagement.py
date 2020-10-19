@@ -17,6 +17,7 @@ import datetime
 import CCapAC.security.service as service
 import CCapAC.security.profile as profile
 import CCapAC.security.statement as statement
+import CCapAC.security.bigchaindb as bigchaindb
 
 from CCapAC.admin import tokens_table, profile_table, service_table, asset_table
 
@@ -53,22 +54,28 @@ def tokens():
         # Profile verification
         profile_id =  decode["statementCredential"]["profile_id"]
         profile_exist = profile_table.search(Query().context.id == profile_id)
+        
+        bigDb_instance = bigchaindb.BigchaDb()
+        profile_exist_db = bigDb_instance.search(text=profile_id)
+        
         text = dict(profile_exist[0])
-        if not profile_exist:
+        if not profile_exist and not profile_exist_db :
             flash("Profile don't exist", "danger")
             return redirect(url_for('statement.tokens'))
         
         # Service and asset verification
         service_id = text["profileCredential"]["service_id"]
         service_exist = service_table.search(Query().context.id == service_id)
-        if not service_exist:
+        service_exist_db = bigDb_instance.search(text=service_id)
+        if not service_exist and not service_exist_db:
             flash("Service don't exist", "danger")
             return redirect(url_for('statement.tokens'))
 
         # Asset verification
         asset_id = text["profileCredential"]["asset_id"]
         asset_exist = asset_table.search(Query().context.uid == asset_id)
-        if not asset_exist:
+        asset_exist_db = bigDb_instance.search(text=asset_id)
+        if not asset_exist and not asset_exist_db:
             flash("Asset don't exist", "danger")
             return redirect(url_for('statement.tokens'))
         
