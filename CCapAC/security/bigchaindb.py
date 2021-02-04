@@ -3,7 +3,8 @@ from CCapAC.admin import bigchaindb_table
 import datetime
 import sys
 
-bdb_root_url = 'https://test.ipdb.io/'
+#online testing node address (https://test.ipdb.io/)
+bdb_root_url = 'http://localhost:9984/'
 bdb = BigchainDB(bdb_root_url)
 
 admin_public_key = "9SXGTajcQ4WmmoSVzCvDMPneqGrmcpSYc4Kg71f651Pc"
@@ -31,20 +32,20 @@ class BigchaDb:
         recipients=[([rep_public_key], 10)],
         asset = asset_tx )
         t2 = datetime.datetime.now()
-        
+
         t3 = datetime.datetime.now()
         fulfilled_tx = bdb.transactions.fulfill(
             prepared_tx,
             private_keys=admin_private_key)
         t4 = datetime.datetime.now()
-        
+
         t5 = datetime.datetime.now()
         bdb.transactions.send_commit(fulfilled_tx)
         t6 = datetime.datetime.now()
 
         print(f"System Tx: {sys.getsizeof(self.tx_body)}")
         print(f"BigchainDB TX: {sys.getsizeof(fulfilled_tx)}")
-        
+
         txid = fulfilled_tx['id']
         txtype = fulfilled_tx['asset']['data']['tx_type']
         tx = {
@@ -62,11 +63,9 @@ class BigchaDb:
             'commit_time' : {
                 'start': t5.strftime('%M:%S.%f'),
                 'finish' : t6.strftime('%M:%S.%f')
-            } 
+            }
         }
         bigchaindb_table.insert(tx)
 
     def search(self, text=None):
         return bdb.assets.get(search=text, limit=1)
-
-
