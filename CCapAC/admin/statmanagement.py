@@ -57,9 +57,10 @@ def tokens():
         
         bigDb_instance = bigchaindb.BigchaDb()
         profile_exist_db = bigDb_instance.search(text=profile_id)
+        print(len(profile_exist_db))
         
         text = dict(profile_exist[0])
-        if not profile_exist and not profile_exist_db :
+        if not profile_exist or not profile_exist_db :
             flash("Profile don't exist", "danger")
             return redirect(url_for('statement.tokens'))
         
@@ -67,7 +68,7 @@ def tokens():
         service_id = text["profileCredential"]["service_id"]
         service_exist = service_table.search(Query().context.id == service_id)
         service_exist_db = bigDb_instance.search(text=service_id)
-        if not service_exist and not service_exist_db:
+        if not service_exist or not service_exist_db:
             flash("Service don't exist", "danger")
             return redirect(url_for('statement.tokens'))
 
@@ -75,7 +76,7 @@ def tokens():
         asset_id = text["profileCredential"]["asset_id"]
         asset_exist = asset_table.search(Query().context.uid == asset_id)
         asset_exist_db = bigDb_instance.search(text=asset_id)
-        if not asset_exist and not asset_exist_db:
+        if not asset_exist or not asset_exist_db:
             flash("Asset don't exist", "danger")
             return redirect(url_for('statement.tokens'))
         

@@ -3,7 +3,7 @@ from CCapAC.admin import bigchaindb_table
 import datetime
 import sys
 
-bdb_root_url = 'http://localhost:9984/'
+bdb_root_url = 'https://test.ipdb.io/'
 bdb = BigchainDB(bdb_root_url)
 
 admin_public_key = "9SXGTajcQ4WmmoSVzCvDMPneqGrmcpSYc4Kg71f651Pc"
